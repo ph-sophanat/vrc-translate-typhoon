@@ -16,6 +16,22 @@ DeepL TH→JA/EN  ←───────────────────�
 
 The Rust app has **no whisper-rs** — STT is the local Python service it POSTs to.
 
+## Requirements
+
+| | |
+|---|---|
+| **OS** | Windows 10/11. Windows-first (system-tray icon, auto-launch/kill of the Python service); not tested on Linux/macOS. |
+| **VRChat** | Running, with **OSC enabled** (Action Menu → Options → OSC → Enabled). |
+| **Build toolchain** | [Rust](https://rustup.rs) **1.85+** (2024 edition). The crate has **no native deps** (no whisper-rs / LLVM / cmake), so it compiles in seconds. |
+| **ASR service** | **Python 3.12** — NeMo pins numpy 1.26, which has no 3.14 wheel. Deps (`typhoon-asr`) installed from `service/requirements.txt` into `service/.venv`. |
+| **Disk** | **~0.5 GB** for the Typhoon ASR model on first run (plus **~2.4 GB** only if you use the offline `nllb` translation backend). |
+| **RAM** | ~4 GB free for the loaded model. |
+| **GPU** *(optional)* | NVIDIA GPU + CUDA build of torch for lower latency (`--device cuda`). CPU is fine for Typhoon (cold load ~10–20 s). |
+| **Translation key** | A **DeepL** API key (free tier works) for the default backend, **or** an **Anthropic** key for `claude`, **or** no key at all for the offline `nllb` backend. |
+| **Network** | Internet for the model download and for DeepL/Claude calls. The `nllb` backend runs fully offline after its one-time download. |
+
+> **No toolchain needed for end users:** `powershell -ExecutionPolicy Bypass -File package.ps1` builds a standalone `dist-bundle/` (Rust app + frozen Python service) that runs with **neither Rust nor Python** installed — just drop in your `config.toml` and run.
+
 ## Run (one step)
 
 With VRChat open + OSC enabled:
