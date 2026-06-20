@@ -5,6 +5,33 @@ streaming FastConformer-Transducer) instead of Whisper. Transducers don't
 hallucinate/loop on short clips the way Whisper does, so short sentences are
 much more accurate.
 
+## Quick start
+
+Needs **Rust 1.85+**, **Python 3.12**, a **DeepL** (or Anthropic) API key, and
+VRChat open with **OSC enabled**.
+
+```sh
+git clone https://github.com/ph-sophanat/vrc-translate-typhoon
+cd vrc-translate-typhoon
+
+# One-time: create the ASR service venv (downloads the model on first run)
+cd service
+py -3.12 -m venv .venv
+.venv\Scripts\pip install --index-url https://download.pytorch.org/whl/cpu torch
+.venv\Scripts\pip install -r requirements.txt
+cd ..
+
+# Add your key
+copy config.example.toml config.toml
+#   then edit config.toml: set deepl_key  (or anthropic_key + mt_backend = "claude")
+
+# Run — auto-launches the ASR service and opens the status window
+cargo run --release
+```
+
+Then speak Thai — JA/EN appears in the VRChat chatbox. The offline `nllb`
+backend needs no key. Full details below.
+
 ## Architecture
 
 ```
