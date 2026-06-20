@@ -1,0 +1,23 @@
+[package]
+name = "vrc-translate-typhoon"
+version = "0.1.0"
+edition = "2024"
+
+# NOTE: no whisper-rs here. STT is done by the local Typhoon ASR service
+# (service/server.py), which the Rust app talks to over plain HTTP. That drops
+# the whole LLVM/bindgen/cmake/whisper.cpp native build — this crate compiles
+# in seconds.
+[dependencies]
+anyhow = "1.0.102"
+cpal = "0.18.1"
+reqwest = { version = "0.13", default-features = false, features = ["blocking", "json", "native-tls"] }
+rosc = "0.11.4"
+rubato = "0.15"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"
+toml = "1.1.2"
+voice_activity_detector = "0.2.1"
+
+# GUI: native status window (egui/eframe) + system tray icon.
+eframe = "0.29"
+tray-icon = "0.19"

@@ -1,0 +1,40 @@
+# vrc-translate (Typhoon ASR edition) configuration
+#
+# Copy this file to `config.toml` and fill in your own keys. The keys are
+# personal — each user supplies their own; nothing here is shipped pre-filled.
+
+# DeepL API key. Get a free one at https://www.deepl.com/pro-api
+# Required when mt_backend = "deepl" (the default).
+deepl_key = ""
+
+# Language you SPEAK (used for the DeepL source code). Thai = "th".
+source_lang = "th"
+
+# DeepL target languages. Primary shown on top line, secondary below.
+target_primary   = "JA"      # Japanese
+target_secondary = "EN-US"   # English
+
+# VRChat OSC endpoint (default VRChat listener).
+osc_addr = "127.0.0.1:9000"
+
+# Local Typhoon ASR service. The app auto-launches the bundled service\server.exe;
+# leave this as-is unless you run the service elsewhere.
+typhoon_url = "http://127.0.0.1:8765"
+
+# Translation backend:
+#   "deepl"  — fast, free, needs deepl_key. Good for clear sentences.
+#   "claude" — best idioms/context, small per-utterance cost, needs anthropic_key.
+#   "nllb"   — free + fully offline, runs in the local service. No key needed.
+#              More literal than deepl/claude; first use downloads ~2.4GB.
+mt_backend = "deepl"
+
+# Anthropic API key. Required ONLY when mt_backend = "claude".
+# Get one at https://console.anthropic.com
+anthropic_key = ""
+# Claude model. Default Haiku = low latency for real-time chat.
+# For higher quality (slower): "claude-sonnet-4-6" or "claude-opus-4-8".
+claude_model = "claude-haiku-4-5"
+
+# NLLB model for mt_backend = "nllb". Default 600M is fast on CPU;
+# "facebook/nllb-200-3.3B" is higher quality but much slower.
+nllb_model = "facebook/nllb-200-distilled-600M"

@@ -1,0 +1,5 @@
+# Typhoon ASR service deps. Requires Python 3.12 (NeMo pins numpy 1.26, which has
+# no Python 3.14 wheel). Install CPU torch first from the pytorch CPU index:
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch
+#   pip install -r requirements.txt
+typhoon-asr>=0.1.1
